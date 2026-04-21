@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Panel | Pushp Niketan School</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  /* Greens */
+  --g-darkest:#062a10;--g-dark:#0d3b1e;--g-mid:#1a5c34;--g-base:#2d8b55;--g-light:#52b788;--g-pale:#a8e6c1;--g-ghost:#e8f8ef;
+  /* Reds */
+  --r-dark:#7f0c0c;--r-mid:#c0392b;--r-base:#e74c3c;--r-light:#ff7675;--r-pale:#ffb3b3;--r-ghost:#fff0f0;
+  /* Blues */
+  --b-dark:#0d3b6e;--b-mid:#1565c0;--b-base:#2196f3;--b-light:#64b5f6;--b-pale:#bbdefb;--b-ghost:#e8f4ff;
+  /* Yellows */
+  --y-dark:#7c5800;--y-mid:#c9960e;--y-base:#f59e0b;--y-light:#fbbf24;--y-pale:#fde68a;--y-ghost:#fffbea;
+  /* Neutrals */
+  --dark:#060e14;--card:#ffffff;--bg:#f4f7f5;--txt:#1a2820;--muted:#5a7565;--border:#e0eae4;
+  --radius-sm:10px;--radius:18px;--radius-lg:28px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--g-base);border-radius:4px}
+
+/* ── TICKER ── */
+.pns-ticker{background:linear-gradient(90deg,var(--g-dark),var(--g-mid),var(--b-dark),var(--r-dark),var(--y-dark),var(--g-dark));background-size:400% 100%;animation:ticker-grad 8s linear infinite;padding:9px 0;overflow:hidden}
+@keyframes ticker-grad{0%{background-position:0% 50%}100%{background-position:400% 50%}}
+.ticker-track{display:flex;white-space:nowrap;animation:ticker-scroll 40s linear infinite}
+.ticker-track span{color:#fff;font-size:12.5px;font-weight:600;padding:0 32px;letter-spacing:.3px}
+.ticker-track span::before{content:'✦ ';color:var(--y-light)}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── TOP CONTACT BAR ── */
+.pns-topbar{background:var(--g-darkest);padding:12px 5%;display:flex;justify-content:space-between;align-items:center}
+.topbar-left{display:flex;gap:22px;flex-wrap:wrap}
+.topbar-left a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;font-weight:500;display:flex;align-items:center;gap:5px;transition:.2s}
+.topbar-left a:hover{color:var(--y-light)}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.social-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);display:inline-flex;align-items:center;justify-content:center;font-size:13px;text-decoration:none;transition:.3s;font-weight:700}
+.social-btn:hover{background:var(--g-base);border-color:var(--g-base);color:#fff}
+.pay-btn{background:linear-gradient(135deg,var(--y-mid),var(--y-base));color:var(--dark);font-size:13px;font-weight:800;padding:6px 16px;border-radius:14px;text-decoration:none;letter-spacing:.5px;transition:.3s}
+.pay-btn:hover{transform:scale(1.05)}
+
+/* ── NAV ── */
+.pns-nav{position:sticky;top:0;z-index:999;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:2px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:70px;box-shadow:0 2px 24px rgba(0,0,0,.06)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo{width:50px;height:50px;object-fit:contain}
+.brand-text .n1{display:block;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--g-dark);letter-spacing:-.2px}
+.brand-text .n2{font-size:10px;color:var(--g-base);font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+.nav-menu{display:flex;gap:2px;list-style:none;align-items:center}
+.nav-menu li a{color:var(--txt);font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;text-decoration:none;transition:.25s;letter-spacing:.1px}
+.nav-menu li a:hover,.nav-menu li a.active{color:var(--g-mid);background:var(--g-ghost)}
+.nav-menu li a.active{font-weight:700}
+.nav-apply{background:linear-gradient(135deg,var(--g-base),var(--g-mid));color:#fff;padding:9px 20px;border-radius:24px;font-size:13px;font-weight:700;text-decoration:none;transition:.3s;letter-spacing:.3px;box-shadow:0 4px 16px rgba(45,139,85,.3)}
+.nav-apply:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,139,85,.4)}
+
+/* ── FOOTER ── */
+.pns-footer{background:var(--g-darkest);padding:56px 5% 0}
+.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:44px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.07)}
+.footer-brand-logo{width:68px;height:68px;object-fit:contain;margin-bottom:16px}
+.footer-brand p{color:rgba(255,255,255,.45);font-size:13px;line-height:1.9;max-width:250px;margin-top:10px}
+.footer-col h4{color:rgba(255,255,255,.9);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;padding-bottom:8px;border-bottom:2px solid rgba(255,255,255,.07)}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{color:rgba(255,255,255,.45);font-size:13px;text-decoration:none;transition:.2s;display:flex;align-items:center;gap:6px}
+.footer-col ul li a:hover{color:var(--y-light);padding-left:4px}
+.footer-bottom{padding:18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{color:rgba(255,255,255,.25);font-size:12px}
+.footer-socials{display:flex;gap:8px}
+.footer-socials a{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none;transition:.3s;font-weight:700}
+.footer-socials a:hover{background:var(--g-base);border-color:var(--g-base);color:#fff}
+
+
+body{background:#0d1117;color:#e6edf3;font-family:'Plus Jakarta Sans',sans-serif}
+.admin-shell{min-height:100vh;display:flex;flex-direction:column}
+.admin-topbar{background:#161b22;border-bottom:1px solid #30363d;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.admin-topbar .brand{display:flex;align-items:center;gap:12px}
+.admin-topbar .brand span{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#58a6ff}
+.admin-topbar .badge{background:#da3633;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:.5px}
+.admin-topbar .back-btn{color:#8b949e;font-size:13px;text-decoration:none;border:1px solid #30363d;border-radius:8px;padding:6px 14px;transition:.2s}
+.admin-topbar .back-btn:hover{color:#e6edf3;border-color:#58a6ff}
+.admin-content{flex:1;padding:32px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px 24px}
+.stat-card .val{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:#58a6ff}
+.stat-card .lbl{font-size:12px;color:#8b949e;margin-top:4px;font-weight:500}
+.reviews-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.reviews-header h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#e6edf3}
+.clear-btn{background:transparent;border:1px solid #da3633;color:#da3633;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif}
+.clear-btn:hover{background:#da3633;color:#fff}
+.review-item{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:22px 24px;margin-bottom:16px;position:relative;transition:.2s}
+.review-item:hover{border-color:#58a6ff30}
+.review-meta{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.review-name{font-weight:700;font-size:15px;color:#e6edf3}
+.review-role{background:#21262d;color:#8b949e;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;letter-spacing:.3px}
+.review-stars{color:#f0a500;font-size:16px;letter-spacing:1px}
+.review-date{color:#8b949e;font-size:12px;margin-left:auto}
+.review-text{color:#c9d1d9;font-size:14px;line-height:1.75;border-top:1px solid #21262d;padding-top:12px;margin-top:4px}
+.delete-btn{position:absolute;top:16px;right:16px;background:transparent;border:1px solid #30363d;color:#8b949e;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif}
+.delete-btn:hover{background:#da3633;border-color:#da3633;color:#fff}
+.empty-state{text-align:center;padding:80px 20px;color:#8b949e}
+.empty-state .icon{font-size:56px;margin-bottom:16px}
+.empty-state h3{font-family:'Syne',sans-serif;font-size:20px;color:#e6edf3;margin-bottom:8px}
+.filter-row{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;align-items:center}
+.filter-btn{background:#21262d;border:1px solid #30363d;color:#8b949e;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif}
+.filter-btn.active,.filter-btn:hover{background:#58a6ff20;border-color:#58a6ff;color:#58a6ff}
+.filter-sort{background:#21262d;border:1px solid #30363d;color:#8b949e;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;margin-left:auto;font-family:'Plus Jakarta Sans',sans-serif}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+
+  <div class="admin-topbar">
+    <div class="brand">
+      <span>🏫 PNS Admin Panel</span>
+      <span class="badge">🔒 PRIVATE</span>
+    </div>
+    <a href="index.html" class="back-btn">← Back to Website</a>
+  </div>
+
+  <div class="admin-content">
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card"><div class="val" id="totalCount">0</div><div class="lbl">Total Reviews</div></div>
+      <div class="stat-card"><div class="val" id="avgRating">—</div><div class="lbl">Average Rating</div></div>
+      <div class="stat-card"><div class="val" id="todayCount">0</div><div class="lbl">Reviews Today</div></div>
+      <div class="stat-card"><div class="val" id="fiveStarCount">0</div><div class="lbl">5-Star Reviews</div></div>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterReviews('all',this)">All</button>
+      <button class="filter-btn" onclick="filterReviews(5,this)">⭐⭐⭐⭐⭐</button>
+      <button class="filter-btn" onclick="filterReviews(4,this)">⭐⭐⭐⭐</button>
+      <button class="filter-btn" onclick="filterReviews(3,this)">⭐⭐⭐ &amp; below</button>
+      <select class="filter-sort" onchange="sortReviews(this.value)">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="highest">Highest Rating</option>
+        <option value="lowest">Lowest Rating</option>
+      </select>
+    </div>
+
+    <div class="reviews-header">
+      <h2>📋 Submitted Reviews</h2>
+      <button class="clear-btn" onclick="clearAllReviews()">🗑 Delete All Reviews</button>
+    </div>
+
+    <div id="reviewsList"></div>
+  </div>
+
+</div>
+
+<script>
+let allReviews = [];
+let currentFilter = 'all';
+let currentSort = 'newest';
+
+function loadReviews() {
+  allReviews = JSON.parse(localStorage.getItem('pns_reviews') || '[]');
+  updateStats();
+  renderReviews();
+}
+
+function updateStats() {
+  const total = allReviews.length;
+  document.getElementById('totalCount').textContent = total;
+  if(total > 0) {
+    const avg = (allReviews.reduce((s,r)=>s+r.rating,0)/total).toFixed(1);
+    document.getElementById('avgRating').textContent = avg + ' ★';
+  } else {
+    document.getElementById('avgRating').textContent = '—';
+  }
+  const today = new Date().toDateString();
+  document.getElementById('todayCount').textContent = allReviews.filter(r=>new Date(r.date).toDateString()===today).length;
+  document.getElementById('fiveStarCount').textContent = allReviews.filter(r=>r.rating===5).length;
+}
+
+function renderReviews() {
+  let reviews = [...allReviews];
+  // Filter
+  if(currentFilter !== 'all') {
+    if(currentFilter === 3) reviews = reviews.filter(r=>r.rating<=3);
+    else reviews = reviews.filter(r=>r.rating===currentFilter);
+  }
+  // Sort
+  if(currentSort==='newest') reviews.sort((a,b)=>b.id-a.id);
+  else if(currentSort==='oldest') reviews.sort((a,b)=>a.id-b.id);
+  else if(currentSort==='highest') reviews.sort((a,b)=>b.rating-a.rating);
+  else if(currentSort==='lowest') reviews.sort((a,b)=>a.rating-b.rating);
+
+  const container = document.getElementById('reviewsList');
+  if(reviews.length===0) {
+    container.innerHTML = `<div class="empty-state"><div class="icon">📭</div><h3>No reviews yet</h3><p>Reviews submitted via the <a href="pns-review.html" style="color:#58a6ff">Review Page</a> will appear here.</p></div>`;
+    return;
+  }
+  container.innerHTML = reviews.map(r=>{
+    const stars = '★'.repeat(r.rating) + '☆'.repeat(5-r.rating);
+    const d = new Date(r.date);
+    const dateStr = d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) + ' · ' + d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="review-item" id="rev-${r.id}">
+      <button class="delete-btn" onclick="deleteReview(${r.id})">🗑 Delete</button>
+      <div class="review-meta">
+        <span class="review-name">${escapeHtml(r.name)}</span>
+        <span class="review-role">${escapeHtml(r.role)}</span>
+        <span class="review-stars">${stars}</span>
+        <span class="review-date">📅 ${dateStr}</span>
+      </div>
+      <div class="review-text">${escapeHtml(r.text)}</div>
+    </div>`;
+  }).join('');
+}
+
+function escapeHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function deleteReview(id) {
+  if(!confirm('Delete this review?')) return;
+  allReviews = allReviews.filter(r=>r.id!==id);
+  localStorage.setItem('pns_reviews', JSON.stringify(allReviews));
+  updateStats();
+  renderReviews();
+}
+
+function clearAllReviews() {
+  if(!confirm('Delete ALL reviews permanently? This cannot be undone.')) return;
+  allReviews = [];
+  localStorage.setItem('pns_reviews', JSON.stringify(allReviews));
+  updateStats();
+  renderReviews();
+}
+
+function filterReviews(val, btn) {
+  currentFilter = val;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReviews();
+}
+
+function sortReviews(val) {
+  currentSort = val;
+  renderReviews();
+}
+
+loadReviews();
+</script>
+</body>
+</html>
